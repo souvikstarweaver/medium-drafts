@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>The Way You Format a Prompt Can Swing Model Accuracy by 76 Points</title>
+</head>
+<body>
+<h1>The Way You Format a Prompt Can Swing Model Accuracy by 76 Points</h1>
+<p><em>Most AI benchmarks treat prompt formatting as a footnote. A new metric called the Format Sensitivity Index shows it should be the headline.</em></p>
+<p>You run the same model on the same benchmark with the same questions. The only thing you change is the wrapper format, the template that surrounds each question before the model sees it. One wrapper says "Answer with A, B, C, or D." Another says "Please select the correct option." A third drops the question into a structured XML block.</p>
+<p>Same model. Same knowledge. Accuracy swings by up to 0.76 across those wrappers <a href="https://arxiv.org/html/2607.09665v1">Authors, 2023</a>.</p>
+<p>That is not noise. That is a measurement system telling you more about the packaging than the product.</p>
+<p>I have spent years making product decisions informed by model evaluations. Choosing which model to deploy, which provider to trust, which fine-tune to ship. Every one of those decisions assumed the benchmark number was stable. The Format Sensitivity Index (FSI) makes a simple, uncomfortable claim: for many models, it is not.</p>
+<h2>What the Format Sensitivity Index Measures</h2>
+<p>FSI quantifies how much a model's accuracy changes when you swap the prompt wrapper around a benchmark question. Think of it like testing a bathroom scale by weighing the same object in different positions on the platform. A good scale gives you the same number no matter where you place the object. A bad one gives you a different reading every time you shift it an inch to the left.</p>
+<p>Models with a low FSI behave like the good scale. Models with a high FSI behave like the bad one.</p>
+<p>The numbers are striking. The mean FSI varies by over 30 times across models <a href="https://arxiv.org/html/2607.09665v1">Authors, 2023</a>. Some models hold steady across wrapper formats. Others collapse. Two models sitting next to each other on a leaderboard, separated by a point of accuracy, can have wildly different FSI scores. One earned its score. The other got lucky with the wrapper the benchmark happened to use.</p>
+<p>| Model Category | Relative FSI | Interpretation | |---|---|---| | Low-FSI models | 1x (baseline) | Accuracy holds across wrappers. Score is trustworthy. | | Mid-FSI models | ~5-10x baseline | Accuracy shifts with formatting. Score needs context. | | High-FSI models | ~30x baseline | Accuracy is a function of the wrapper, not the model's knowledge. |</p>
+<p><em>Variation in Format Sensitivity Index across models.</em></p>
+<p>The takeaway is not that benchmarks are useless. The takeaway is that a single accuracy number, without FSI reported alongside it, is incomplete.</p>
+<h2>Your Evaluation Pipeline Has a Wrapper Problem</h2>
+<p>This is where format sensitivity stops being an academic curiosity and starts costing real engineering hours.</p>
+<p>Accuracy and parseability (whether the model's output can be read and scored at all) are correlated at a Pearson r of 0.825 <a href="https://arxiv.org/html/2607.09665v1">Authors, 2023</a>. That number is high. It means that when a model "fails" a benchmark question, the failure is often not a knowledge gap. The model gave an answer the scoring script could not parse.</p>
+<p>I have seen this pattern in production. A model answers correctly but wraps the answer in extra text, or drops the letter label, or adds a period where the regex expected none. The evaluation marks it wrong. The team concludes the model is worse. The team is wrong.</p>
+<p>For anyone building an evaluation pipeline today, this creates a concrete problem. You pick a wrapper format early. You test against it. You optimize for it. And then you compare your model to a competitor's benchmark result that used a different wrapper. You are comparing numbers that were measured on different scales.</p>
+<p>The implication for roadmap decisions: if you are choosing between Model A and Model B based on benchmark accuracy alone, and you have not controlled for wrapper format, you do not have enough information to make the call. A two-point accuracy gap between models can vanish, or reverse, with a wrapper change.</p>
+<!-- IMAGE | caption: Correlation between parseability and accuracy in AI evaluations. | prompt: A clean diagram showing two axes, parseability on x-axis and accuracy on y-axis, with a strong positive correlation line and scattered data points representing different wrapper formats across models. | size: wide -->
+<p>Three things change when you account for FSI in your evaluation workflow:</p>
+<p><strong>Model selection gets harder before it gets better.</strong> You cannot pick a winner from a single benchmark run. You need multiple wrapper formats, and you need to report the variance.</p>
+<p><strong>Fine-tuning feedback loops become suspect.</strong> If your fine-tune improved accuracy by 3 points on a specific wrapper, you need to check whether that gain holds on other wrappers. A gain that disappears with a format change is not a gain in model capability. It is a gain in format compliance.</p>
+<p><strong>Vendor comparisons require shared evaluation protocols.</strong> Two vendors quoting accuracy numbers from different wrapper formats are not competing on the same field.</p>
+<h2>What FSI Does Not Cover Yet</h2>
+<p>The format sensitivity research tested multiple-choice benchmarks. Multiple-choice is a constrained output space: the model picks A, B, C, or D. Production workloads look different. Summarization, code generation, multi-turn conversation, structured data extraction. None of these were part of the FSI evaluation.</p>
+<p>If wrapper choice can change accuracy by 0.76 on a task as simple as picking a letter, the effect on open-ended generation could be larger or smaller. No one has measured it yet <a href="https://arxiv.org/html/2607.09665v1">Authors, 2023</a>.</p>
+<p>The sample of models tested is also bounded. FSI scores exist for a set of models at a point in time. New architectures, new training recipes, new RLHF approaches could produce models with different sensitivity profiles. The metric is sound. The coverage is early.</p>
+<p>One more gap: FSI treats all wrapper formats as equal perturbations. In practice, some wrappers are closer to the model's training distribution than others. A wrapper that looks like the model's instruction-tuning template will perform better not because the model is smarter, but because the format is familiar. FSI does not separate "the model is robust" from "the wrapper matched the training data."</p>
+<p>This distinction matters. A model that scores low on FSI could be genuinely robust, or it could have been tested with wrappers that all resemble its training format. The metric flags instability well. It does not yet explain the cause.</p>
+<h2>The Benchmark Number Is Not the Model</h2>
+<p>Every leaderboard in AI right now publishes a single accuracy number per model per benchmark. No wrapper metadata. No FSI score. No variance band.</p>
+<p>This is the equivalent of publishing a clinical trial result without reporting the dosage. The number is real. The number is also incomplete. And decisions made on incomplete numbers compound in a specific direction: toward overconfidence in small differences between models.</p>
+<p>For anyone shipping AI into production, the correction is mechanical. Test your candidate models across at least three wrapper formats. Report the range, not the peak. Treat any accuracy difference smaller than your FSI-derived variance band as noise, not signal.</p>
+<p>The models that survive that filter are the ones worth deploying.</p>
+<hr>
+<p><strong>Cover Image Prompt:</strong></p>
+<p>A dark monochromatic 3D conceptual render representing fluctuating scales of measurement. Strictly no text, no typography. A single, minimalistic focal point. Black and white palette with high-contrast background in a 16:9 frame. Surreal, highly minimalistic, philosophical, conceptual, hyper-realistic, 8k resolution, cinematic composition.</p>
+</body>
+</html>
