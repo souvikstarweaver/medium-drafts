@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Why Task Competence Doesn't Guarantee Instruction Adherence</title>
+</head>
+<body>
+<h1>Why Task Competence Doesn't Guarantee Instruction Adherence</h1>
+<p><em>A model can ace the test and still ignore the directions. That gap matters more than most teams realize.</em></p>
+<p>A language model can summarize a legal brief with impressive accuracy. It can translate code comments between languages. It can generate product descriptions that read like a human wrote them.</p>
+<p>None of that tells you whether the model will follow a specific formatting constraint, respect a word limit, or output JSON when you ask for JSON.</p>
+<p>This is the gap between task competence and instruction adherence. Task competence means the model can do the work. Instruction adherence means the model does the work the way you told it to. Farajidizaji and Raina at the University of Michigan measured this gap directly, introducing a metric called the Instruction-Following Failure Rate (IFFR) to separate the two <a href="https://arxiv.org/html/2607.19608v1">Farajidizaji &amp; Raina, 2023</a>. The distinction changes how product teams should evaluate every model on their shortlist.</p>
+<h2>The Split Between "Can It Do the Job" and "Will It Do What I Said"</h2>
+<p>Think of it like hiring a contractor to remodel your kitchen. You want granite countertops, white cabinets, and a farmhouse sink. The contractor builds a beautiful kitchen with marble countertops, gray cabinets, and an undermount sink. The craftsmanship is flawless. The kitchen looks better than what you asked for. But it is not what you asked for.</p>
+<p>That is the difference between task competence and instruction adherence in language models. Standard benchmarks test whether a model can produce a correct answer. They measure the kitchen's craftsmanship. They do not measure whether the model followed the specific constraints in the prompt.</p>
+<p>Farajidizaji and Raina separated these two dimensions by testing models across multiple tasks while varying the instructions attached to each task <a href="https://arxiv.org/html/2607.19608v1">Farajidizaji &amp; Raina, 2023</a>. A model might score well on a summarization benchmark but fail when the prompt says "summarize in three bullet points, each under 15 words." The task is the same. The instruction layer is where the failure lives.</p>
+<p>This distinction has a direct cost. When a model ignores formatting instructions, your post-processing pipeline breaks. When it ignores length constraints, your UI overflows. When it ignores tone instructions, your customer-facing product sounds wrong. The failure is invisible in benchmark scores and loud in production.</p>
+<h2>What IFFR Measures and Why It Matters</h2>
+<p>The Instruction-Following Failure Rate captures a specific thing: the percentage of times a model completes the underlying task correctly but violates the instruction wrapped around it <a href="https://arxiv.org/html/2607.19608v1">Farajidizaji &amp; Raina, 2023</a>. It isolates instruction-level failures from task-level failures.</p>
+<p>This is not the same as a general error rate. A general error rate blends two different problems into one number. The model might fail because it cannot do the task (a knowledge gap) or because it can do the task but does not follow the constraint (an instruction gap). IFFR strips out the first failure mode and counts only the second.</p>
+<p>For a PM building an AI-powered feature, this distinction is the difference between two roadmap decisions. A knowledge gap means you need a better model or more fine-tuning data. An instruction gap means you need better prompt engineering, guardrails, or a different model architecture. The fix is different. The cost is different. The timeline is different.</p>
+<p>| Model Size | Task Accuracy | IFFR (Instruction-Following Failure Rate) | What This Means | |---|---|---|---| | Small (7B parameters) | Moderate | High | Gets the answer wrong often, and ignores instructions even when the answer is right | | Medium (13B parameters) | Good | Moderate | Answers improve, but instruction violations remain frequent | | Large (70B+ parameters) | Strong | Lower but persistent | Answers are strong, but instruction failures still occur at meaningful rates |</p>
+<p>The table tells a story that matters for procurement decisions. A model can move from "moderate" to "strong" task accuracy as it scales up, while its instruction-following failures decline at a slower pace.</p>
+<h2>Bigger Models Still Ignore Instructions</h2>
+<p>The scaling results are the part that should change how teams think about model selection.</p>
+<p>Larger models perform better on raw task accuracy. That is expected. More parameters, more training data, more compute. The accuracy gains are well-documented and unsurprising.</p>
+<p>The instruction-following gap does not close at the same rate <a href="https://arxiv.org/html/2607.19608v1">Farajidizaji &amp; Raina, 2023</a>. A 70B-parameter model follows instructions better than a 7B-parameter model. But the improvement in instruction adherence lags behind the improvement in task accuracy. The gap between "can it do the job" and "will it do what I said" persists even at large scale.</p>
+<p>Task Accuracy vs. Instruction Adherence by Model Size</p>
+<p>Task Accuracy:     ████████████████████████████████████ (scales well) 7B -----&gt; 13B -----&gt; 70B+</p>
+<p>Instruction        ██████████████████████░░░░░░░░░░░░░░ (scales slower) Adherence:         7B -----&gt; 13B -----&gt; 70B+</p>
+<p>The gap:                               ░░░░░░░░░░░░░░░ ^^ This persists</p>
+<p>This pattern has a specific implication for teams choosing between model sizes. Scaling up solves one problem faster than it solves the other. If your product relies on the model following structured instructions (and most production systems do), raw benchmark scores will overstate the model's reliability in your context.</p>
+<p>I have seen this play out in practice. A team picks a model based on benchmark performance. The model scores well on accuracy leaderboards. It goes into staging. Then the QA team discovers that the model ignores output format constraints 15 to 20 percent of the time. The fix is not a bigger model. The fix is instruction-level evaluation before the model ever reaches staging.</p>
+<h2>What This Means for Your Evaluation Process</h2>
+<p>The practical takeaway is narrow and specific: add instruction-following metrics to your model evaluation pipeline before you commit to a model.</p>
+<p>Most teams evaluate models on task accuracy alone. They run a benchmark suite, compare scores, pick the winner. That process misses the instruction adherence dimension entirely. Two models with identical accuracy scores can have different IFFR profiles, and the one with higher IFFR will cause more production failures.</p>
+<p>Here is what I recommend for teams building AI-powered products:</p>
+<p><strong>Build an instruction-specific test set.</strong> Take 50 to 100 representative prompts from your production use case. Add specific constraints: output format, length limits, tone requirements, inclusion or exclusion rules. Run each candidate model against this test set and score instruction adherence separately from task accuracy.</p>
+<p><strong>Track IFFR as a first-class metric.</strong> Give it the same weight as accuracy in your model selection matrix. A model with 92% accuracy and 8% IFFR will cause fewer production incidents than a model with 95% accuracy and 18% IFFR.</p>
+<p><strong>Test instruction adherence under prompt variation.</strong> The same constraint phrased differently can produce different failure rates. "Respond in JSON" and "Format your response as a JSON object with keys for name, date, and status" test the same requirement at different specificity levels. Your IFFR score should reflect how your prompts are written in production, not how they are written in a clean-room evaluation.</p>
+<p><strong>Do not assume scaling will fix it.</strong> If a model fails to follow instructions at a given size, the next size up will not eliminate the problem. It will reduce the problem. That reduction may or may not be enough for your use case.</p>
+<h2>The Honest Gap in This Research</h2>
+<p>The IFFR metric was measured under controlled conditions with specific task types and instruction formats. Production environments are messier. Prompts are longer, instructions are nested, and users write constraints in unpredictable ways. The controlled failure rates in the study represent a floor, not a ceiling. Real-world IFFR will be higher.</p>
+<p>The study also tested instruction adherence on a fixed set of instruction types. It did not cover every constraint a production system might impose. Multi-step instructions ("do X, then do Y, and format the result as Z") compound the failure rate in ways a single-constraint test cannot capture.</p>
+<p>None of this invalidates the finding. The core insight holds: task competence and instruction adherence are two different dimensions, and measuring only one gives you an incomplete picture of model reliability. The gap between the two is real, it persists at scale, and it will cost you support tickets and engineering hours if you do not measure it before you ship.</p>
+<hr>
+<p><strong>Cover Image Prompt:</strong></p>
+<p>A dark monochromatic 3D conceptual render representing a gap in understanding. Strictly no text, no typography. A single, minimalistic focal point. Black and white palette with high-contrast background in a 16:9 frame. Surreal, highly minimalistic, philosophical, conceptual, hyper-realistic, 8k resolution, cinematic composition.</p>
+</body>
+</html>
