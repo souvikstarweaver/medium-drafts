@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>The Cost of Hasty Automation: When AI Goes Wrong</title>
+</head>
+<body>
+<h1>The Cost of Hasty Automation: When AI Goes Wrong</h1>
+<p><em>Overhyped goals and poor data preparation keep sending AI projects off a cliff. Three enterprises learned this the expensive way.</em></p>
+<p>Ninety-five percent of generative AI implementations in the enterprise have no measurable impact on profit and loss, according to research from MIT (<a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/95-percent-of-generative-ai-implementations-in-enterprise-have-no-measurable-impact-on-p-and-l-says-mit-flawed-integration-key-reason-why-ai-projects-underperform">MIT NANDA, 2026</a>). That number deserves a second read.</p>
+<p>Not because AI is incapable. Because the organizations deploying it keep making the same mistakes. Mismatched data. Unrealistic timelines. A conviction that automation means removing humans, rather than augmenting them.</p>
+<p>Three recent failures tell a clear story. A fast food chain, a bank, and a government agency each bet on AI to replace human judgment in high-stakes, customer-facing work. Each discovered the same thing: the technology was not the problem. The decision-making around it was.</p>
+<h2>McDonald's Bet on an AI Drive-Through</h2>
+<p>In 2022, McDonald's partnered with IBM to roll out an automated voice-ordering system across more than 100 drive-through locations. The idea was straightforward. An AI system would take customer orders by voice, reduce labor costs, and speed up the line.</p>
+<p>The system did not hold up under real conditions. Customers reported incorrect orders, awkward pauses, and a machine that could not handle accents, menu modifications, or background noise from a car full of kids. By June 2024, McDonald's ended the partnership and pulled the technology from all test locations (<a href="https://apnews.com/article/bebc898363f2d550e1a0cd3c682fa234">AP News, 2024</a>).</p>
+<p>The core failure was not the speech recognition model. It was the assumption that a drive-through order is a simple, predictable interaction. It is not. A drive-through order involves interruptions, changes mid-sentence, regional slang, and ambient noise that varies from location to location. The training data never accounted for this variance. The system was built for a controlled environment and deployed into chaos.</p>
+<p>| Category | Planned Outcome | Actual Outcome | |---|---|---| | Order accuracy | Near-human or better | Frequent misinterpretations of accents, modifications, and background noise | | Labor cost reduction | Reduced staffing at drive-through | Staff still required to intervene on failed orders | | Customer experience | Faster, seamless ordering | Customer frustration, viral social media complaints | | Scale | Nationwide rollout | Pulled from all 100+ test locations by mid-2024 |</p>
+<p><em>Outcome Analysis of McDonald's AI Voice-Ordering Project</em></p>
+<p>The takeaway is not that voice AI cannot work. It is that deploying AI in a high-variability, real-time environment demands training data that reflects that variability. McDonald's trained for the average order. The average order does not exist.</p>
+<h2>The Commonwealth Bank Hired Back the Humans</h2>
+<p>The Commonwealth Bank of Australia replaced a portion of its customer service staff with AI chatbots. The intent was to reduce call center costs and handle routine inquiries at scale. The bots launched. Customer satisfaction dropped.</p>
+<p>The chatbots could not handle nuanced financial questions. They misrouted customers. They failed on edge cases that, in banking, are not edge cases at all: disputed transactions, loan modification requests, account recovery for elderly users. The bank reversed course, rehiring human staff to replace the AI systems that had replaced them (<a href="https://www.techradar.com/pro/now-thats-an-embarassing-u-turn-bank-forced-to-rehire-human-workers-after-their-ai-replacement-fail-to-perform">TechRadar, 2026</a>).</p>
+<p>This is a pattern I have seen repeated across industries. An organization identifies the cost line (human agents), picks the replacement tool (chatbot), and skips the hardest step: mapping the full complexity of what those humans do. A call center agent handling a disputed credit card charge is not routing a ticket. That agent is reading emotional cues, applying policy with discretion, and making trust decisions in real time. No chatbot in 2026 does this well.</p>
+<p>| Metric | Pre-AI (Human Staff) | Post-AI (Chatbot) | After Reversal (Rehired Staff) | |---|---|---|---| | Routine inquiry resolution | High | Comparable | High | | Complex query handling | High | Poor, frequent misrouting | Restored | | Customer satisfaction | Baseline | Dropped | Recovery in progress | | Staffing cost | Higher | Lower (short-term) | Increased, plus sunk AI investment |</p>
+<p><em>Customer Service Staffing at the Commonwealth Bank: Pre- and Post-AI Implementation</em></p>
+<p>The bank's mistake was treating customer service as a cost problem when it was a trust problem. Automating cost is easy to model. Automating trust is not.</p>
+<h2>ICE's Screening Tool Sorted People into the Wrong Boxes</h2>
+<p>U.S. Immigration and Customs Enforcement deployed an AI screening tool during a recruitment push. The tool was designed to evaluate and categorize applicants. It did categorize them. It categorized them wrong.</p>
+<p>The system misclassified candidates across multiple dimensions, assigning incorrect risk profiles, misidentifying qualifications, and flagging applicants based on data artifacts rather than relevant criteria (<a href="https://www.thedailybeast.com/ice-barbies-recruitment-blitz-hit-by-embarrassing-tech-error">Daily Beast, 2025</a>). The resulting operational confusion was public and embarrassing.</p>
+<p>| Misclassification Type | Description | Operational Impact | |---|---|---| | Qualification errors | Candidates flagged as unqualified despite meeting criteria | Qualified applicants rejected or delayed | | Risk profile errors | Incorrect risk categories assigned to applicants | Misallocation of review resources | | Data artifact flags | Irrelevant data points triggered false positives | Manual review burden increased, not decreased |</p>
+<p><em>Impact of ICE's AI Screening Tool: Misclassification Breakdown</em></p>
+<p>When you hand a classification task to a model and that model has no mechanism for saying "I am not confident in this answer," every output carries the same weight. The system does not distinguish between a clear match and a guess. Humans do. That distinction matters when the output determines whether someone gets a job.</p>
+<h2>What These Failures Share</h2>
+<p>Three different industries. Three different use cases. The same structural mistakes.</p>
+<p>The first mistake is treating AI as a replacement for human judgment rather than a tool that augments it. Every one of these deployments removed humans from a process that required human discretion, then discovered the gap only after customers or applicants paid the price.</p>
+<p>The second mistake is deploying on timelines set by business targets, not by technical readiness. McDonald's ran a two-year pilot, but the pilot never solved the core data problem. The Commonwealth Bank moved to cut costs without measuring what those costs were buying. ICE deployed a tool without validation against the edge cases that define its own domain.</p>
+<p>The third mistake is the absence of a fallback. None of these organizations had a clean path back to human operations when the AI failed. The reversals were messy, public, and expensive. A deployment plan without a rollback plan is not a plan. It is a bet.</p>
+<p>Seventy percent of agentic AI projects fail before reaching production, with most failures traced to poor planning and missing integration with existing workflows (<a href="https://www.techradar.com/pro/why-most-agentic-ai-projects-fail-and-how-to-avoid-being-one-of-them">TechRadar, 2026</a>). These three cases confirm the pattern. The technology was not immature. The deployment discipline was.</p>
+<h2>The Real Question</h2>
+<p>The question facing every PM and founder considering an AI deployment is not "can this model do the task?" The question is "what happens when the model gets the task wrong, and who absorbs that cost?"</p>
+<p>McDonald's customers got the wrong food. The Commonwealth Bank's customers got routed in circles. ICE's applicants got sorted into categories that did not describe them. In each case, the cost of failure landed on the person with the least power to fix it.</p>
+<p>Building AI into a product is an engineering decision. Choosing where to remove humans from a process is a judgment call with consequences that extend far beyond the P and L. The organizations that get this right will not be the ones with the best models. They will be the ones that know which decisions a model should never make alone.</p>
+<hr>
+<p><strong>Cover Image Prompt:</strong></p>
+<p>A dark monochromatic 3D conceptual render representing misplaced trust. Strictly no text, no typography. A single, minimalistic focal point. Black and white palette with high-contrast background in a 16:9 frame. Surreal, highly minimalistic, philosophical, conceptual, hyper-realistic, 8k resolution, cinematic composition.</p>
+</body>
+</html>
