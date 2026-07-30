@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Why the Integration Layer Outweighs the AI Model in ERP Success</title>
+</head>
+<body>
+<h1>Why the Integration Layer Outweighs the AI Model in ERP Success</h1>
+<p><em>The effort ratio most teams get wrong, and what the right one looks like</em></p>
+<p>Every team adding AI to an ERP system starts with the model. They pick the LLM. They fine-tune it. They demo it to leadership on a Wednesday. By Friday, they are deep in the part nobody warned them about: the 300 connections between the AI and everything it touches.</p>
+<p>The model is the easy part. The integration work, meaning the data pipelines, the access controls, the error handling, the schema mappings between modules that were built ten years apart, is where ERP AI projects stall, burn budget, and die. I have seen teams spend 80% of their energy tuning a model that accounts for 20% of the production risk. The ratio needs to invert.</p>
+<p>This article lays out why integration eats the project, what the right effort split looks like, and what happens to organizations that learn this too late.</p>
+<h2>The Integration Problem Nobody Budgets For</h2>
+<p>An ERP system is not one system. It is a federation of modules: finance, procurement, inventory, HR, order management, warehouse. Each module has its own data model, its own validation rules, its own update cadence. When you drop an AI agent into this federation, the agent does not interact with "the ERP." It interacts with every module the task touches.</p>
+<p>A purchase order, for example, moves through procurement, hits inventory for stock checks, crosses into finance for budget validation, and lands in accounts payable. That is four modules, four schemas, four sets of business rules. The AI model's job (reading the PO, extracting fields, making a decision) is a single step. The integration work (getting clean data in, routing the decision out, handling failures at each boundary) is everything else.</p>
+<p>Think of it like wiring a new appliance into an old house. The appliance works fine on the bench. The wiring is the project. You are tracing circuits, checking loads, replacing junction boxes, and testing every outlet downstream. The appliance cost you $500. The wiring cost you $5,000.</p>
+<p>This is why the integration layer, not the AI model, determines whether an ERP AI project reaches production. An AI agent can read a purchase requisition, validate it against policy, and approve it without a human clicking through seventeen screens (<a href="https://www.elixirdata.co/blog/agentic-ai-on-erp-practitioners-guide">Elixir Data, 2026</a>). But that capability means nothing if the connection between the agent and the procurement module drops data, mishandles currency formats, or fails to respect approval hierarchies already encoded in the ERP.</p>
+<h2>The 60/20/20 Effort Split</h2>
+<p>Most teams allocate effort by intuition. The AI model feels like the hard part, so it gets the most attention. Governance feels like paperwork, so it gets the least. Integration sits in the middle, underfunded and understaffed.</p>
+<p>The right ratio is 60/20/20: sixty percent of total project effort on integration architecture, twenty percent on the AI model, and twenty percent on governance.</p>
+<p>Here is what each bucket contains.</p>
+<p>The 60% (integration architecture) covers data pipeline design, schema mapping between ERP modules, error handling and retry logic, API versioning, latency management, rollback procedures, and monitoring. It covers the work of making sure data arrives clean, decisions route to the right module, and failures do not cascade.</p>
+<p>The 20% (AI model) covers model selection, prompt engineering or fine-tuning, evaluation benchmarks, and accuracy testing. This is the part most teams know how to do. It is also the part that matters least if the inputs are dirty and the outputs have nowhere to go.</p>
+<p>The 20% (governance) covers access controls, audit trails, decision logging, compliance checks, and the human-in-the-loop design for high-stakes actions. A Fortune 500 company processes over 500,000 invoices per year, each involving 8 to 12 manual steps (<a href="https://www.elixirdata.co/blog/agentic-ai-on-erp-practitioners-guide">Elixir Data, 2026</a>). When AI automates those steps, the governance layer determines whether anyone can trace what happened, why, and who approved the logic that made the call.</p>
+<p>The reason integration takes 60% is volume. A single AI capability in an ERP touches dozens of integration points. Each one needs to be mapped, tested, monitored, and maintained. Data quality alone accounts for a third of ERP projects exceeding their budgets. Fix the data layer and the connection layer first. The model will perform once it has clean inputs and reliable outputs.</p>
+<h2>What Happens When Integration Gets 20% Instead of 60%</h2>
+<p>I have watched this pattern play out three times in two years. The sequence is consistent.</p>
+<p>The team ships a working demo. The model performs well on test data. Leadership greenlights production deployment. Within the first month, failures start appearing. Not model failures. Connection failures. A field format changed in the finance module. A procurement workflow added a new approval tier that the integration layer did not account for. An inventory sync ran on a different schedule than the AI agent expected, so the agent made decisions on stale stock numbers.</p>
+<p>These are not edge cases. These are the standard operating conditions of a live ERP.</p>
+<p>The cost of fixing integration problems in production is five to ten times the cost of building the integration layer correctly before deployment. When an AI agent approves a purchase order based on stale data, the error does not stay in one module. It flows downstream into finance, into inventory, into vendor payments. One bad decision by the agent creates reconciliation work across four teams.</p>
+<p>ERP systems are the operational backbone of global business. They remain central to enterprise operations precisely because they encode decades of business logic (<a href="https://www.elixirdata.co/blog/agentic-ai-on-erp-practitioners-guide">Elixir Data, 2026</a>). An AI agent that bypasses or misunderstands that logic does not add value. It creates liability.</p>
+<p>The organizations that report fewer production failures share one trait: they treated integration as the primary engineering challenge from day one. Not the model. Not the demo. The plumbing.</p>
+<h2>What This Means for the People Making the Call</h2>
+<p>If you are a CIO or an engineering lead evaluating an AI-on-ERP initiative, here is what the 60/20/20 ratio means for your planning.</p>
+<p>Your integration team needs to be your largest allocation. Not your data science team. Not your ML engineers. The people who understand your ERP's module boundaries, data flows, and business rules are the ones who determine whether the AI agent works in production. Staff accordingly.</p>
+<p>Your timeline should reflect integration complexity, not model complexity. Model selection and fine-tuning can happen in weeks. Mapping, testing, and hardening 300 integration points takes months. If your project plan shows model work on the critical path, the plan is wrong.</p>
+<p>Your governance layer is not a phase-two concern. Every AI decision that touches financial data, vendor payments, or compliance-sensitive workflows needs an audit trail from day one. Bolting governance on after deployment means rearchitecting under pressure, which is the most expensive way to build anything.</p>
+<p>The model is a component. Integration is the product. The teams that internalize this distinction ship AI that survives contact with a live ERP. The teams that do not internalize it ship demos that become cautionary stories.</p>
+<p>Build the wiring before you plug in the appliance.</p>
+<hr>
+<p><strong>Cover Image Prompt:</strong></p>
+<p>A dark monochromatic 3D conceptual render representing tangled wires and connections. Strictly no text, no typography. A single, minimalistic focal point. Black and white palette with high-contrast background in a 16:9 frame. Surreal, highly minimalistic, philosophical, conceptual, hyper-realistic, 8k resolution, cinematic composition.</p>
+</body>
+</html>
