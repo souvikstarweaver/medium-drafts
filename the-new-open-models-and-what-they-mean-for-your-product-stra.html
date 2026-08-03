@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>The New Open Models and What They Mean for Your Product Strategy</title>
+</head>
+<body>
+<h1>The New Open Models and What They Mean for Your Product Strategy</h1>
+<p><em>Fine-tuning access, not model size, is becoming the competitive edge in AI product development.</em></p>
+<p>The conventional wisdom a year ago was consolidation. Fewer labs would train frontier models. Everyone else would call APIs. That prediction aged poorly.</p>
+<p>In the span of a few weeks, three open model releases landed that collectively redraw how AI teams should think about product differentiation: Laguna S2.1, Inkling, and Kimi K3. Each carries a different architecture, a different licensing posture, and a different bet on where value accrues. The common thread is that all three ship weights you can touch, modify, and deploy on your own infrastructure.</p>
+<p>This matters more than any benchmark score. When you control the weights, you control the product surface. When you call an API, someone else does.</p>
+<p>| Feature | Laguna S2.1 | Inkling | Kimi K3 | |---|---|---|---| | Architecture | 118B-A8B (pre- and post-trained) | Compact, task-optimized | Largest recent open release | | License | OpenMDW (Apache 2.0-like) | Permissive | Noncommercial (commercial agreement required) | | Fine-tuning access | Full weight access, fits on DGX Spark | Open weights | Requires commercial partnership | | Target use case | On-prem customization | Lightweight deployment | Research and enterprise negotiation |</p>
+<p><em>Comparison of Key Features Among Top Open Models.</em></p>
+<h2>What Makes Each Model Worth Watching</h2>
+<p>Laguna S2.1 stands out for a reason that has nothing to do with raw performance numbers. Its 118B-A8B configuration, meaning 118 billion total parameters with 8 billion active at inference, was designed to fit on a single DGX Spark <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. That is a hardware constraint decision disguised as an architecture decision. For any team running inference on-premise, the gap between "fits on one box" and "needs a cluster" is the gap between a viable product and a procurement nightmare.</p>
+<p>The model ships in both pre-trained and post-trained versions. Pre-trained gives you a blank canvas for domain-specific fine-tuning. Post-trained gives you something useful out of the box. Offering both signals that the team behind Laguna expects customers to treat the weights as raw material, not a finished product.</p>
+<p>Kimi K3 is the largest open model in the current batch, but its licensing tells a different story. It ships under a noncommercial license, which means any company wanting to fine-tune or serve it in production needs a commercial agreement with the team behind it <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. "Open" here means you can see the weights and run experiments. It does not mean you can build a business on top without a contract.</p>
+<p>Inkling occupies the opposite end: compact, task-optimized, and built for teams that need fast deployment without heavy infrastructure. Its value is speed to production, not raw capability.</p>
+<h2>Why Open Weights Keep Winning</h2>
+<p>Two years ago, the bet was that training costs would concentrate model development in a handful of well-funded labs. The economics pointed that direction. Training runs cost tens of millions of dollars. Only a few organizations could afford them.</p>
+<p>What the consolidation thesis missed was demand. The demand for tokens is high and growing as models become more efficient and open more use cases <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. That demand creates a market for customization that API-only providers cannot serve well.</p>
+<p>Think of it like the car industry in the 1990s. Manufacturers did not make money on the base vehicle alone. The margin lived in customization, options, and aftermarket parts. Open model weights are the base vehicle. Fine-tuning is the options package.</p>
+<p>Thinking Machines built an open model fine-tuning service that now generates hundreds of millions in revenue per year <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. That number is the strongest signal in this entire space. It proves that "give away the model, sell the customization" is not a theory. It is a working business model with real revenue attached.</p>
+<p>For product teams, the implication is direct. If your competitor fine-tunes an open model on their proprietary data and you are calling a general-purpose API, their product will feel more tailored to the user. That gap compounds over time as they accumulate fine-tuning iterations and domain-specific training data.</p>
+<h2>Licensing as a Product Strategy Decision</h2>
+<p>The licensing story deserves attention because it determines what you can build, not what you can benchmark.</p>
+<p>Laguna S2.1 adopted the OpenMDW license, an Apache 2.0-style license with stronger legal protections specific to AI model distribution <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. Poolside adopted the same license. This is a pattern, not a coincidence. Model developers are recognizing that the old open-source licenses were written for software code, not for model weights, and the legal ambiguity was slowing enterprise adoption.</p>
+<p>Kimi K3's noncommercial license creates a different dynamic. It comes from a Chinese AI lab, and the licensing structure intersects with ongoing questions about U.S. regulatory posture toward Chinese AI entities <a href="https://www.interconnects.ai/p/latest-open-artifacts-23-laguna-s21">Interconnects AI, 2023</a>. For any PM evaluating Kimi K3 for a production workload, the licensing question is not academic. It determines whether you can ship the product in your target market.</p>
+<p>The split between Laguna's permissive license and Kimi's restrictive one maps to two different theories of value capture. Laguna bets that widespread adoption creates an ecosystem where the model developer benefits from network effects and fine-tuning services. Kimi bets that controlling commercial access preserves pricing power. Both are rational strategies. Your choice between them depends on your risk tolerance for vendor dependency and regulatory exposure.</p>
+<h2>The Competitive Question for Product Teams</h2>
+<p>The model you choose is a product architecture decision that constrains everything downstream: your deployment costs, your ability to differentiate through fine-tuning, your legal exposure, and your switching costs.</p>
+<p>Teams that treat model selection as a benchmarking exercise are missing the point. The right question is not "which model scores highest on MMLU." The right question is "which model gives me the most control over my product's differentiation surface while keeping my legal and infrastructure risk manageable."</p>
+<p>Open weights are winning because they answer that question better than APIs do.</p>
+<hr>
+<p><strong>Cover Image Prompt:</strong></p>
+<p>A dark monochromatic 3D conceptual render representing abstract control and customization. Strictly no text, no typography. A single, minimalistic focal point. Black and white palette with high-contrast background in a 16:9 frame. Surreal, highly minimalistic, philosophical, conceptual, hyper-realistic, 8k resolution, cinematic composition.</p>
+</body>
+</html>
