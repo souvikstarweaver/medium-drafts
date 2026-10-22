@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You Can't Six Sigma Your Way to a Better Model</title>
+<style>
+  body { background:#fbfaf7; color:#1f1f1f; font-family: Georgia, "Times New Roman", serif; line-height:1.7; margin:0; padding:48px 16px; }
+  article { max-width:680px; margin:0 auto; font-size:19px; }
+  h1 { font-family: Helvetica, Arial, sans-serif; font-size:38px; line-height:1.2; margin:0 0 12px; }
+  .subtitle { font-family: Helvetica, Arial, sans-serif; font-size:21px; color:#666; font-weight:400; margin:0 0 40px; }
+  h3 { font-family: Helvetica, Arial, sans-serif; font-size:23px; margin:40px 0 12px; }
+  p { margin:0 0 20px; }
+  ul { padding-left:22px; margin:0 0 20px; }
+  li { margin-bottom:10px; }
+  hr { border:none; text-align:center; margin:40px 0; }
+  hr::after { content:"* * *"; color:#999; letter-spacing:6px; }
+  a { color:#1f1f1f; text-decoration-thickness:1px; text-underline-offset:3px; }
+  @media (prefers-color-scheme: dark) {
+    body { background:#161616; color:#e8e6e1; }
+    .subtitle { color:#9a9a9a; }
+    a { color:#e8e6e1; }
+  }
+</style>
+</head>
+<body>
+<article>
+
+<h1>You Can't Six Sigma Your Way to a Better Model.</h1>
+<p class="subtitle">But you can Six Sigma everything around it.</p>
+
+<p>In 2001, 3M hired a CEO from General Electric to fix its slowing growth. James McNerney brought GE's favourite tool with him: Six Sigma.</p>
+
+<p>Within a few years, the company behind Post-it Notes and Scotch tape had trained thousands of employees as black belts. Margins improved. The stock moved up.</p>
+
+<p>And the innovation engine started to stall.</p>
+
+<p>By one widely reported measure, the share of 3M's sales coming from new products slid from roughly <a href="https://www.designnews.com/industry/3m-shelves-six-sigma-in-r-d">one-third to one-quarter</a>. When McNerney left for Boeing, his successor, George Buckley, kept Six Sigma in the factories and pulled it out of the research labs.</p>
+
+<p>Eric Ries revisits this story in <a href="https://www.porchlightbooks.com/products/incorruptible-eric-ries-9798893311860"><em>Incorruptible</em></a>, his new book on why good companies drift away from what made them great. It's usually told as a cautionary tale about innovation.</p>
+
+<p>It's worth retelling now for a different reason.</p>
+
+<p>AI product teams are walking toward the same fork.</p>
+
+<hr>
+
+<h3>What Six Sigma actually does</h3>
+
+<p>Before criticising it, it helps to see it working where it belongs.</p>
+
+<p>Picture a soda bottling line. Every bottle should hold 500 ml, give or take 5. About 2% come out underfilled. Six Sigma fixes that in five phases, called DMAIC:</p>
+
+<ul>
+  <li><strong>Define.</strong> Scope the problem to one line, one machine, one metric: fill volume.</li>
+  <li><strong>Measure.</strong> Check that the scales are accurate, then sample bottles for two weeks to get a baseline.</li>
+  <li><strong>Analyze.</strong> Use that data to find the causes. Two worn nozzle seals. Soda that foams when it runs warm.</li>
+  <li><strong>Improve.</strong> Replace the seals, chill the liquid, run a pilot, measure again.</li>
+  <li><strong>Control.</strong> Put a control chart on the line so it never drifts back.</li>
+</ul>
+
+<p>Underfills drop from 2% to almost zero. Nobody invented anything. They made an existing process stop wobbling.</p>
+
+<p>That's the key. DMAIC is built to fix a process that already exists, holds still, and can be measured. Its goal is to remove variation.</p>
+
+<p>Hold that thought.</p>
+
+<hr>
+
+<h3>It wasn't just 3M</h3>
+
+<p>One company is an anecdote. The pattern shows up in the research too.</p>
+
+<p>Mary Benner and Michael Tushman tracked patents in the paint and photography industries from 1980 to 1999. As process management programs spread inside those firms, innovation shifted toward building on what they already knew, and <a href="https://knowledge.wharton.upenn.edu/?p=5007">exploratory innovation lost ground</a>.</p>
+
+<p>In a follow-up paper that later won the Academy of Management Review's Decade Award, they argued that these programs work in stable settings but clash with anything beyond incremental change, and should be <a href="https://searchworks.jioinstitute.edu.in/articles/edb__9416096">kept apart from exploratory work</a>.</p>
+
+<p>A study of 83 Six Sigma projects at a large automaker landed in the same place. Six Sigma measurably helped incremental innovation. There was <a href="https://repositorio.unesp.br/items/952942d5-c85e-4149-9461-4aef298cb615/full">no statistical evidence</a> that it helped radical innovation.</p>
+
+<p>Six Sigma doesn't kill innovation. It kills a specific kind.</p>
+
+<p>The kind that starts with not knowing the answer.</p>
+
+<p>Which raises the real question for anyone building with AI. Which kind of work are you doing?</p>
+
+<hr>
+
+<h3>AI products are exploration-shaped</h3>
+
+<p>When Microsoft studied its own teams building AI features, it found that machine learning workflows are highly non-linear and full of feedback loops, and that models get <a href="https://www.microsoft.com/en-us/research/publication/software-engineering-for-machine-learning-a-case-study/">entangled with each other</a> in ways that make errors behave unpredictably.</p>
+
+<p>In plain terms, you change one thing, and something you weren't touching gets better or worse.</p>
+
+<p>That is the opposite of a bottling line.</p>
+
+<p>To see where it breaks, run DMAIC on a real AI feature. Say, a support assistant that answers customer questions about refund policy. A defect is a wrong or made-up answer.</p>
+
+<hr>
+
+<h3>DMAIC meets an AI assistant</h3>
+
+<p><strong>Define</strong> asks for a fixed spec. 500 ml, plus or minus 5.</p>
+
+<p>A refund answer doesn't have one. It can be accurate but confusing. Correct but cold. Technically true and still wrong for that customer. Two experts can read the same reply and disagree on whether it's a defect.</p>
+
+<p><strong>Measure</strong> is where it really comes apart.</p>
+
+<p>On the bottling line, a scale weighs the bottle. On the assistant, you need something to score thousands of answers. So teams use an LLM judge, a second model that grades the first.</p>
+
+<p>But the judge is also an AI.</p>
+
+<p>Score the same answer twice and you can get two different scores. Judges tend to favour longer answers, whichever option they see first, and outputs that sound like themselves. And if the vendor updates the judge model, your baseline shifts overnight, even though nothing in your product changed.</p>
+
+<p>So you bring in humans to check the judge. Human-in-the-loop.</p>
+
+<p>Now the humans disagree with each other. If two reviewers agree on 80% of answers, your "ground truth" carries 20% noise. You cannot measure a defect rate in parts per million with an instrument that argues with itself one time in five.</p>
+
+<p>It gets worse.</p>
+
+<p>Reviewer corrections usually feed back into prompts or training data, so the act of measuring changes the process while you're still measuring it. And when reviewers catch errors before customers see them, the defect rate you observe is really two processes multiplied together: how often the model fails, and how often the reviewer misses it.</p>
+
+<p>Reviewers get tired. Rubrics drift over weeks. Human review is slow and expensive, so samples stay small.</p>
+
+<p>On the bottling line, Measure takes two weeks. On an AI product, Measure becomes its own research project. You have to fix your measurement system before you can fix the thing you're measuring.</p>
+
+<p><strong>Analyze</strong> looks for root causes. Worn seal. Warm soda.</p>
+
+<p>In AI, there often isn't one. Behaviour is emergent. A fishbone diagram has no box for "the model generalised strangely from something in its training data."</p>
+
+<p><strong>Improve</strong> assumes a fix stays fixed. A new seal stays a new seal.</p>
+
+<p>A prompt change that fixes refund answers can quietly break shipping answers. Every improvement needs a full regression check, and the next model release can undo all of it.</p>
+
+<p><strong>Control</strong> locks the process in place.</p>
+
+<p>In AI, locking the process means refusing better models when they arrive. What Six Sigma treats as discipline becomes a reason to fall behind.</p>
+
+<p>And underneath all five phases sits one assumption: variation is the enemy.</p>
+
+<p>For a generative product, variation is often the point. Different outputs for different people. Answers that adapt to the person asking. Squeeze out all the variance and you squeeze out the value.</p>
+
+<hr>
+
+<h3>"Then use Design for Six Sigma"</h3>
+
+<p>A Six Sigma practitioner would push back here, and fairly. DMAIC is for fixing existing processes. For new products, there's Design for Six Sigma, run as DMADV: Define, Measure, Analyze, Design, Verify.</p>
+
+<p>It doesn't escape the problem.</p>
+
+<p>DFSS starts by capturing what customers want and turning it into fixed, measurable requirements. That works when customers know what they want.</p>
+
+<p>With AI, they usually don't. Before chat models, nobody wrote a requirement that said "let me talk to my spreadsheet." The need showed up after the capability did.</p>
+
+<p>AI requirements aren't captured. They're discovered.</p>
+
+<p>And a method that needs the spec upfront will always be one model release behind.</p>
+
+<hr>
+
+<h3>Where Six Sigma genuinely helps</h3>
+
+<p>None of this means Six Sigma has no place in AI. It has an important one. Just not where most people try to put it.</p>
+
+<p>The parts of an AI product that behave like a bottling line are stable, measurable, and expensive when they wobble:</p>
+
+<ul>
+  <li><strong>Inference reliability.</strong> Latency, uptime, and cost per query have clear specs and clear causes. Classic DMAIC territory.</li>
+  <li><strong>Data pipelines.</strong> Missing fields, schema breaks, and duplicate records are defects in the old-fashioned sense.</li>
+  <li><strong>Labelling consistency.</strong> Annotation is a human process with measurable agreement rates. Six Sigma was made for this.</li>
+  <li><strong>Eval regression gates.</strong> Once an eval is trusted, holding every release to it is quality control, not research.</li>
+  <li><strong>Drift monitoring.</strong> A control chart on output quality is exactly the right tool to catch a slow slide.</li>
+</ul>
+
+<p>Even 3M's researchers kept using design of experiments, one of Six Sigma's core tools, <a href="https://www.designnews.com/industry/3m-shelves-six-sigma-in-r-d">after the mandate was lifted</a>.</p>
+
+<p>The tool was never the problem. The blanket mandate was.</p>
+
+<hr>
+
+<h3>The Lab and the Line</h3>
+
+<p>The fix Buckley used at 3M works for AI teams too. Split the work into two zones.</p>
+
+<p><strong>The Lab</strong> is where you figure out what the model can do. Prompt experiments, new capabilities, model evaluations, product bets. Most experiments should fail, and that's how you learn. Judge the Lab by what it learns, not by its defect rate.</p>
+
+<p><strong>The Line</strong> is where proven capabilities run at scale. Here, Six Sigma earns its keep. SLAs, control charts, regression gates, root-cause analysis on pipeline failures.</p>
+
+<p>The important part is the handoff.</p>
+
+<p>A capability graduates from the Lab to the Line when two things are true. Its spec has stopped changing. And the team trusts the eval that measures it.</p>
+
+<p>Before that point, Six Sigma slows you down. After it, skipping Six Sigma is how you end up with a product nobody can rely on.</p>
+
+<p>Benner and Tushman called this ambidexterity. Exploration and exploitation inside the same company, kept far enough apart that one doesn't smother the other.</p>
+
+<hr>
+
+<p>McNerney's mistake wasn't bringing Six Sigma to 3M. It was bringing it everywhere.</p>
+
+<p>The pressure that pushed it into the labs was not unique to 3M. AI companies today face rising inference costs, impatient investors, and boards asking for predictable margins. The instinct will be to bring discipline to everything.</p>
+
+<p>Some of it will help.</p>
+
+<p>But every AI team that runs its Lab like a Line will get exactly what 3M got.</p>
+
+<p>Excellent margins. And nothing new to sell.</p>
+
+</article>
+</body>
+</html>
